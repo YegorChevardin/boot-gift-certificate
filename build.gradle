@@ -37,11 +37,12 @@ dependencies {
 }
 
 jar {
+	duplicatesStrategy = 'exclude'
 	manifest {
 		attributes (
 				'Main-Class': 'ua.com.epam.lab.yegorchevardin.springboot.giftcertificate',
-				'Implementation-Title': 'StringUtils',
-				'Implementation-Version': '1.3.5'
+				'Implementation-Title': 'GiftCertificate',
+				'Implementation-Version': '0.0.1'
 		)
 	}
 	from {
