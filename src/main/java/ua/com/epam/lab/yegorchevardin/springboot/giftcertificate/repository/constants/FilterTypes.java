@@ -12,7 +12,7 @@ import lombok.Getter;
 public enum FilterTypes {
     TAG_NAME("tag_name"),
     SORT_BY_TAG_NAME("tag_name_sort"),
-    USERNAME("username"),
+    NAME("name"),
     DESCRIPTION("description"),
     DATE_SORT("date_sort"),
     NAME_SORT("name_sort");
