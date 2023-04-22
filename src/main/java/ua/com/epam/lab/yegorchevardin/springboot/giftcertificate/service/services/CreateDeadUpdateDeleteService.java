@@ -8,8 +8,7 @@ package ua.com.epam.lab.yegorchevardin.springboot.giftcertificate.service.servic
 public interface CreateDeadUpdateDeleteService<T> extends CreateReadDeleteService<T> {
     /**
      * Updates entity of T datatype
-     * @param id id of specified entity
      * @param entity updated entity
      */
-    T update(long id, T entity);
+    T update(T dto);
 }
