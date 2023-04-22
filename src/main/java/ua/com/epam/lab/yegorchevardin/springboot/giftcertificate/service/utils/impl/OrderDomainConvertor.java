@@ -1,6 +1,5 @@
 package ua.com.epam.lab.yegorchevardin.springboot.giftcertificate.service.utils.impl;
 
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import ua.com.epam.lab.yegorchevardin.springboot.giftcertificate.repository.entities.OrderEntity;
 import ua.com.epam.lab.yegorchevardin.springboot.giftcertificate.service.utils.DomainObjectsConvertor;
@@ -12,7 +11,6 @@ import ua.com.epam.lab.yegorchevardin.springboot.giftcertificate.web.dtos.Order;
  * @version 0.0.1
  */
 @Component
-@Qualifier("orderDomainConvertor")
 public class OrderDomainConvertor implements DomainObjectsConvertor<OrderEntity, Order> {
     @Override
     public Order convertEntityToDTO(OrderEntity entity) {
