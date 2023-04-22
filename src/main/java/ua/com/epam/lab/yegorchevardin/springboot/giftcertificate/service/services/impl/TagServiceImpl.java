@@ -50,12 +50,20 @@ public class TagServiceImpl implements TagService {
 
     @Override
     public Tag findMostPopularTagWithOrdersWithHighestCost() {
-        return null;
+        return tagDomainObjectsConvertor.convertEntityToDTO(
+                tagDAO.findMostPopularTagWithOrdersWithHighestCost().orElseThrow(
+                        () -> new DataNotFoundException(
+                                ExceptionMessages.TAG_NOT_FOUND.getValue()
+                        )
+                )
+        );
     }
 
     @Override
     public List<Tag> doFilter(MultiValueMap<String, String> params, int page, int size) {
-        return null;
+        return tagDAO.findWithFilter(params, PageRequest.of(page, size)).stream().map(
+                tagDomainObjectsConvertor::convertEntityToDTO
+        ).collect(Collectors.toList());
     }
 
     private TagEntity findTagIfExist(Long id) {

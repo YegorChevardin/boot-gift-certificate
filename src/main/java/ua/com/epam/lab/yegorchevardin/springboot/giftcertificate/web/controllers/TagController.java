@@ -6,10 +6,12 @@ import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.Link;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import ua.com.epam.lab.yegorchevardin.springboot.giftcertificate.service.services.TagService;
 import ua.com.epam.lab.yegorchevardin.springboot.giftcertificate.web.dtos.Tag;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
@@ -77,5 +79,37 @@ public class TagController {
     public ResponseEntity<Void> delete(@PathVariable long id) {
         tagService.removeById(id);
         return ResponseEntity.ok().build();
+    }
+
+    /**
+     * Method for handling request to find the most profitable tag
+     * @return Response Entity with tag dto
+     */
+    @GetMapping("/most-profitable")
+    public ResponseEntity<Tag> findMostProfitableTag() {
+        Tag dto = tagService.findMostPopularTagWithOrdersWithHighestCost();
+        dto.add(linkTo(methodOn(TagController.class).findById(dto.getId())).withSelfRel());
+        return ResponseEntity.ok(dto);
+    }
+
+    /**
+     * Method for handling request to find tags with some filters
+     * @param page size of page
+     * @param size amount of elements to get
+     * @return Response Entity with tags
+     */
+    @GetMapping("/filter")
+    public ResponseEntity<CollectionModel<Tag>> tagByFilter(
+            @RequestParam MultiValueMap<String, String> params,
+            @RequestParam(name = "page", defaultValue = "0", required = false) int page,
+            @RequestParam(name = "size", defaultValue = "5", required = false) int size) {
+        List<Tag> tags = tagService.doFilter(params, page, size)
+                .stream().peek(
+                        (element) -> element.add(linkTo(methodOn(TagController.class)
+                                .findById(element.getId())).withSelfRel())
+                ).toList();
+        Link link = linkTo(methodOn(TagController.class)
+                .tagByFilter(params, page, size)).withSelfRel();
+        return ResponseEntity.ok(CollectionModel.of(tags, link));
     }
 }
