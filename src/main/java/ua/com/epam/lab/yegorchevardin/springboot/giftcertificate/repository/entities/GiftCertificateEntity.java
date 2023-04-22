@@ -16,11 +16,11 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "gift_certificates")
-@Audited
 @Getter
 @Setter
 @ToString
 @RequiredArgsConstructor
+@Audited
 public class GiftCertificateEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

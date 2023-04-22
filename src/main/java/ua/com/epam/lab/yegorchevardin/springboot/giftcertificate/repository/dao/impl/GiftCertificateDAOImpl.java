@@ -2,7 +2,7 @@ package ua.com.epam.lab.yegorchevardin.springboot.giftcertificate.repository.dao
 
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import ua.com.epam.lab.yegorchevardin.springboot.giftcertificate.repository.dao.AbstractDAO;
 import ua.com.epam.lab.yegorchevardin.springboot.giftcertificate.repository.dao.GiftCertificateDAO;
 import ua.com.epam.lab.yegorchevardin.springboot.giftcertificate.repository.entities.GiftCertificateEntity;
@@ -10,7 +10,7 @@ import ua.com.epam.lab.yegorchevardin.springboot.giftcertificate.repository.hand
 
 import java.util.Optional;
 
-@Component
+@Repository
 public class GiftCertificateDAOImpl
         extends AbstractDAO<GiftCertificateEntity> implements GiftCertificateDAO {
     private static final String SELECT_BY_NAME =
@@ -18,10 +18,9 @@ public class GiftCertificateDAOImpl
 
     @Autowired
     public GiftCertificateDAOImpl(
-            QueryHandler<GiftCertificateEntity> queryCreator,
-            Class<GiftCertificateEntity> entityType
+            QueryHandler<GiftCertificateEntity> queryCreator
     ) {
-        super(queryCreator, entityType);
+        super(queryCreator, GiftCertificateEntity.class);
     }
 
     @Override

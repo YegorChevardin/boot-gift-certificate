@@ -16,11 +16,11 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "orders")
-@Audited
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
+@Audited
 public class OrderEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
