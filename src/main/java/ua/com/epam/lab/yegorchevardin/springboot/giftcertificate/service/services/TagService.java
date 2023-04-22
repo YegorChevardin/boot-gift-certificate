@@ -11,18 +11,11 @@ import java.util.List;
  * @author yegorchevardin
  * @version 0.0.1
  */
-public interface TagService extends CreateReadDeleteService<Tag> {
-    /**
-     * Method for getting a list of Tag by specific parameters
-     * @param params request parameters from URL
-     * @return List of tags
-     */
-    List<Tag> doFilter(MultiValueMap<String, String> params, int page, int size);
-
+public interface TagService extends CreateReadDeleteService<Tag>, FilterService<Tag> {
     /**
      * Method for getting the most popular tag entity
      * with the highest cost of all orders
      * @return the most popular Tag entity
      */
-    Tag getMostPopularTagWithHighestCostOfAllOrders();
+    Tag findMostPopularTagWithOrdersWithHighestCost();
 }

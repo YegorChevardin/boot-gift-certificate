@@ -13,13 +13,13 @@ public interface CreateReadDeleteService<T> {
      * @param id an id of the object
      * @return a T object
      */
-    T getById(long id);
+    T findById(long id);
 
     /**
      * Retrieves a List of T objects
      * @return A List of T objects
      */
-    List<T> getAll(int page, int size);
+    List<T> findAll(int page, int size);
 
     /**
      * Method for saving an T entity
