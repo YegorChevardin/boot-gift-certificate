@@ -24,11 +24,7 @@ public class TagServiceImpl implements TagService {
     @Override
     public Tag findById(long id) {
         return tagDomainObjectsConvertor.convertEntityToDTO(
-                tagDAO.findById(id).orElseThrow(
-                        () -> new DataNotFoundException(
-                                String.format(ExceptionMessages.TAG_BY_ID_NOT_FOUND.getValue(), id)
-                        )
-                )
+                findTagIfExist(id)
         );
     }
 
@@ -40,13 +36,16 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
-    public Tag insert(Tag entity) {
-        return null;
+    public Tag insert(Tag dto) {
+        TagEntity entity = tagDomainObjectsConvertor.convertDtoToEntity(dto);
+        tagDAO.insert(entity);
+        return tagDomainObjectsConvertor.convertEntityToDTO(entity);
     }
 
     @Override
     public void removeById(long id) {
-
+        findTagIfExist(id);
+        tagDAO.removeById(id);
     }
 
     @Override
@@ -57,5 +56,13 @@ public class TagServiceImpl implements TagService {
     @Override
     public List<Tag> doFilter(MultiValueMap<String, String> params, int page, int size) {
         return null;
+    }
+
+    private TagEntity findTagIfExist(Long id) {
+        return tagDAO.findById(id).orElseThrow(
+                () -> new DataNotFoundException(
+                        String.format(ExceptionMessages.TAG_BY_ID_NOT_FOUND.getValue(), id)
+                )
+        );
     }
 }

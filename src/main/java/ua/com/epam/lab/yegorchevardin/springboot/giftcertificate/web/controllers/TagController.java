@@ -1,8 +1,10 @@
 package ua.com.epam.lab.yegorchevardin.springboot.giftcertificate.web.controllers;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.Link;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ua.com.epam.lab.yegorchevardin.springboot.giftcertificate.service.services.TagService;
@@ -52,5 +54,28 @@ public class TagController {
         Tag tag = tagService.findById(tagId);
         tag.add(linkTo(methodOn(TagController.class).findById(tagId)).withSelfRel());
         return ResponseEntity.ok(tag);
+    }
+
+    /**
+     * Method for handling requests for creating tag
+     * @param tag tag to insert
+     * @return Response Entity with tag dto
+     */
+    @PostMapping
+    public ResponseEntity<Tag> createTag(@RequestBody @Valid Tag tag) {
+        Tag insertedTag = tagService.insert(tag);
+        insertedTag.add(linkTo(methodOn(TagController.class).findById(tag.getId())).withSelfRel());
+        return ResponseEntity.ok(insertedTag);
+    }
+
+    /**
+     * Method for handling removing tag from the database
+     * @param id tag id
+     * @return Response Entity with okay status
+     */
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable long id) {
+        tagService.removeById(id);
+        return ResponseEntity.ok().build();
     }
 }

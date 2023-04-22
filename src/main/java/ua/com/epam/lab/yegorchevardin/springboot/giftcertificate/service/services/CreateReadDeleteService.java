@@ -23,9 +23,9 @@ public interface CreateReadDeleteService<T> {
 
     /**
      * Method for saving an T entity
-     * @param entity an T entity to save
+     * @param dto an T entity to save
      */
-    T insert(T entity);
+    T insert(T dto);
 
     /**
      * Removes an T entity from data source by id
