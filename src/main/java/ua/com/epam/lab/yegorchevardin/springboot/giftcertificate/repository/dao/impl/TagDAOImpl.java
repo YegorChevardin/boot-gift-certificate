@@ -32,7 +32,7 @@ public class TagDAOImpl extends AbstractDAO<TagEntity> implements TagDAO {
         MultiValueMap<String, String> paramMap = new LinkedMultiValueMap<>();
         paramMap.add(TAG_NAME.getValue(), name);
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-        CriteriaQuery<TagEntity> criteriaQuery = queryCreator.createFilteringGetQuery(paramMap, criteriaBuilder);
+        CriteriaQuery<TagEntity> criteriaQuery = queryHandler.createFilteringGetQuery(paramMap, criteriaBuilder);
         return entityManager.createQuery(criteriaQuery)
                 .getResultStream()
                 .findFirst();

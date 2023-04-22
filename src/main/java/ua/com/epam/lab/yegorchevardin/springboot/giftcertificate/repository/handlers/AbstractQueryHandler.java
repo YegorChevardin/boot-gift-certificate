@@ -4,6 +4,7 @@ import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.Expression;
 import jakarta.persistence.criteria.Order;
 import jakarta.persistence.criteria.Predicate;
+import ua.com.epam.lab.yegorchevardin.springboot.giftcertificate.repository.exceptions.IncorrectSortingParameterException;
 
 /**
  * This class provides tools for creating a query
@@ -11,6 +12,9 @@ import jakarta.persistence.criteria.Predicate;
  * @version 0.0.1
  */
 public abstract class AbstractQueryHandler {
+    private static final String ERROR_MESSAGE =
+            "Incorrect sorting type: %s";
+
     /**
      * Creates "like" predicate for the query
      * @param criteriaBuilder a query builder object
@@ -45,6 +49,10 @@ public abstract class AbstractQueryHandler {
             case "desc": {
                 order = criteriaBuilder.desc(expression);
                 break;
+            }
+            default: {
+                throw new IncorrectSortingParameterException(
+                        String.format(ERROR_MESSAGE, sortType));
             }
         }
         return order;

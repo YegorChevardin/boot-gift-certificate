@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.MultiValueMap;
 import ua.com.epam.lab.yegorchevardin.springboot.giftcertificate.repository.dao.TagDAO;
 import ua.com.epam.lab.yegorchevardin.springboot.giftcertificate.repository.entities.TagEntity;
+import ua.com.epam.lab.yegorchevardin.springboot.giftcertificate.service.exceptions.DataExistException;
 import ua.com.epam.lab.yegorchevardin.springboot.giftcertificate.service.exceptions.DataNotFoundException;
 import ua.com.epam.lab.yegorchevardin.springboot.giftcertificate.service.services.TagService;
 import ua.com.epam.lab.yegorchevardin.springboot.giftcertificate.service.services.constants.ExceptionMessages;
@@ -37,6 +38,11 @@ public class TagServiceImpl implements TagService {
 
     @Override
     public Tag insert(Tag dto) {
+        if (tagDAO.findByName(dto.getValue()).isPresent()) {
+            throw new DataExistException(String.format(
+                    ExceptionMessages.TAG_BY_NAME_EXIST.getValue(), dto.getValue())
+            );
+        }
         TagEntity entity = tagDomainObjectsConvertor.convertDtoToEntity(dto);
         tagDAO.insert(entity);
         return tagDomainObjectsConvertor.convertEntityToDTO(entity);

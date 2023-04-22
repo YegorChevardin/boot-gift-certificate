@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+import ua.com.epam.lab.yegorchevardin.springboot.giftcertificate.repository.exceptions.IncorrectSortingParameterException;
+import ua.com.epam.lab.yegorchevardin.springboot.giftcertificate.service.exceptions.DataExistException;
 import ua.com.epam.lab.yegorchevardin.springboot.giftcertificate.service.exceptions.DataNotFoundException;
 
 import java.util.HashMap;
@@ -46,6 +48,20 @@ public class CustomControllerAdvisor extends ResponseEntityExceptionHandler {
     @ExceptionHandler(DataNotFoundException.class)
     public ResponseEntity<Object> handleDataNotFoundException(Exception exception) {
         return wrapExceptionToMap(exception, HttpStatus.NOT_FOUND);
+    }
+
+    /**
+     * Method for handling exceptions with incorrect inserted data
+     * which will return bad request error
+     */
+    @ExceptionHandler(
+            {
+                    DataExistException.class,
+                    IncorrectSortingParameterException.class
+            }
+    )
+    public ResponseEntity<Object> handleDataExistException(Exception exception) {
+        return wrapExceptionToMap(exception, HttpStatus.BAD_REQUEST);
     }
 
     private ResponseEntity<Object> wrapExceptionToMap(

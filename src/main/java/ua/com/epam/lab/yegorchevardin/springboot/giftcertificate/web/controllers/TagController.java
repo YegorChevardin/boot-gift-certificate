@@ -4,14 +4,12 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.Link;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import ua.com.epam.lab.yegorchevardin.springboot.giftcertificate.service.services.TagService;
 import ua.com.epam.lab.yegorchevardin.springboot.giftcertificate.web.dtos.Tag;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
@@ -66,7 +64,7 @@ public class TagController {
     @PostMapping
     public ResponseEntity<Tag> createTag(@RequestBody @Valid Tag tag) {
         Tag insertedTag = tagService.insert(tag);
-        insertedTag.add(linkTo(methodOn(TagController.class).findById(tag.getId())).withSelfRel());
+        insertedTag.add(linkTo(methodOn(TagController.class).findById(insertedTag.getId())).withSelfRel());
         return ResponseEntity.ok(insertedTag);
     }
 
