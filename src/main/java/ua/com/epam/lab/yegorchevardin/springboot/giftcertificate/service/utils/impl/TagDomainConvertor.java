@@ -14,11 +14,16 @@ import ua.com.epam.lab.yegorchevardin.springboot.giftcertificate.web.dtos.Tag;
 public class TagDomainConvertor implements DomainObjectsConvertor<TagEntity, Tag> {
     @Override
     public Tag convertEntityToDTO(TagEntity entity) {
-        return null;
+        Tag dto = new Tag();
+        dto.setId(entity.getId());
+        dto.setValue(entity.getValue());
+        return dto;
     }
 
     @Override
     public TagEntity convertDtoToEntity(Tag dto) {
-        return null;
+        TagEntity entity = new TagEntity();
+        entity.setValue(dto.getValue());
+        return entity;
     }
 }

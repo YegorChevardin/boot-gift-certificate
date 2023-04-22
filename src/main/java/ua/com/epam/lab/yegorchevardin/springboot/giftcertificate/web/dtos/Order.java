@@ -4,9 +4,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.hateoas.RepresentationModel;
-import ua.com.epam.lab.yegorchevardin.springboot.giftcertificate.repository.entities.GiftCertificateEntity;
-import ua.com.epam.lab.yegorchevardin.springboot.giftcertificate.repository.entities.UserEntity;
-
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -21,7 +18,7 @@ import java.util.List;
 public class Order extends RepresentationModel<Order> {
     private Long id;
     private Float cost;
-    private Timestamp purchasedAt;
-    private UserEntity user;
-    private List<GiftCertificateEntity> giftCertificates;
+    private String purchasedAt;
+    private User user;
+    private List<GiftCertificate> giftCertificates;
 }

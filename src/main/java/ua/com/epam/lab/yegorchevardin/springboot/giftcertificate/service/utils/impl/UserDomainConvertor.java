@@ -14,11 +14,16 @@ import ua.com.epam.lab.yegorchevardin.springboot.giftcertificate.web.dtos.User;
 public class UserDomainConvertor implements DomainObjectsConvertor<UserEntity, User> {
     @Override
     public User convertEntityToDTO(UserEntity entity) {
-        return null;
+        User dto = new User();
+        dto.setId(entity.getId());
+        dto.setUsername(entity.getUsername());
+        return dto;
     }
 
     @Override
     public UserEntity convertDtoToEntity(User dto) {
-        return null;
+        UserEntity entity = new UserEntity();
+        entity.setUsername(dto.getUsername());
+        return entity;
     }
 }

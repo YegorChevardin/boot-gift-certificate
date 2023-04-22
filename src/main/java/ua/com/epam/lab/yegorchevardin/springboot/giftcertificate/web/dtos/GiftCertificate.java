@@ -4,8 +4,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.hateoas.RepresentationModel;
-import ua.com.epam.lab.yegorchevardin.springboot.giftcertificate.repository.entities.TagEntity;
-import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -20,9 +18,9 @@ public class GiftCertificate extends RepresentationModel<GiftCertificate> {
     private Long id;
     private String name;
     private String description;
-    private String price;
+    private Float price;
     private Integer duration;
-    private Timestamp createDate;
-    private Timestamp lastUpdateDate;
-    private List<TagEntity> tags;
+    private String createDate;
+    private String lastUpdateDate;
+    private List<Tag> tags;
 }
