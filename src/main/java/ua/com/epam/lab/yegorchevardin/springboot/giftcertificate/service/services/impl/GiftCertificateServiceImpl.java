@@ -47,6 +47,7 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
         GiftCertificateEntity entity = giftCertificateDomainObjectsConvertor
                 .convertDtoToEntity(dto);
         entity.setId(dto.getId());
+        entity.setTags(tagService.insertTagsFromCertificate(entity.getTags()));
         entity.setCreateDate(existedEntity.getCreateDate());
         return giftCertificateDomainObjectsConvertor
                 .convertEntityToDTO(giftCertificateDAO.update(entity));
@@ -79,7 +80,6 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
                 .convertDtoToEntity(dto);
         entity.setCreateDate(Timestamp.valueOf(LocalDateTime.now()));
 
-        //todo handle tags via tags service
         entity.setTags(tagService.insertTagsFromCertificate(entity.getTags()));
 
         return giftCertificateDomainObjectsConvertor
