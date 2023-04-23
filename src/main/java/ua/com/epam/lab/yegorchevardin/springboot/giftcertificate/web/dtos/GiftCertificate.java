@@ -1,5 +1,6 @@
 package ua.com.epam.lab.yegorchevardin.springboot.giftcertificate.web.dtos;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -36,5 +37,5 @@ public class GiftCertificate extends RepresentationModel<GiftCertificate> {
     private Integer duration;
     private String createDate;
     private String lastUpdateDate;
-    private List<Tag> tags = new ArrayList<>();
+    private List<@Valid Tag> tags = new ArrayList<>();
 }

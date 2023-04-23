@@ -13,6 +13,7 @@ import ua.com.epam.lab.yegorchevardin.springboot.giftcertificate.service.service
 import ua.com.epam.lab.yegorchevardin.springboot.giftcertificate.service.utils.DomainObjectsConvertor;
 import ua.com.epam.lab.yegorchevardin.springboot.giftcertificate.web.dtos.Tag;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -71,6 +72,21 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
+    public List<TagEntity> insertTagsFromCertificate(List<TagEntity> tags) {
+        List<TagEntity> tagsToUpdate = new ArrayList<>();
+        for (TagEntity currentTag : tags) {
+            if (tagDAO.findByName(currentTag.getValue()).isPresent()) {
+                tagsToUpdate.add(
+                        tagDAO.findByName(currentTag.getValue()).get()
+                );
+            } else {
+                tagsToUpdate.add(currentTag);
+            }
+        }
+        return tagsToUpdate;
+    }
+
+    @Override
     public List<Tag> doFilter(MultiValueMap<String, String> params, int page, int size) {
         return tagDAO.findWithFilter(params, PageRequest.of(page, size)).stream().map(
                 tagDomainObjectsConvertor::convertEntityToDTO
@@ -84,4 +100,5 @@ public class TagServiceImpl implements TagService {
                 )
         );
     }
+
 }

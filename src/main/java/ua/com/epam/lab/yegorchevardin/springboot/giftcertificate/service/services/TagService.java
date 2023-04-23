@@ -1,6 +1,7 @@
 package ua.com.epam.lab.yegorchevardin.springboot.giftcertificate.service.services;
 
 import org.springframework.util.MultiValueMap;
+import ua.com.epam.lab.yegorchevardin.springboot.giftcertificate.repository.entities.TagEntity;
 import ua.com.epam.lab.yegorchevardin.springboot.giftcertificate.web.dtos.Tag;
 
 import java.util.List;
@@ -18,4 +19,12 @@ public interface TagService extends CreateReadDeleteService<Tag>, FilterService<
      * @return the most popular Tag entity
      */
     Tag findMostPopularTagWithOrdersWithHighestCost();
+
+    /**
+     * Method for inserting only new tags to the database
+     * from all tags from gift certificate
+     * @param tags tags entities to handle
+     * @return List<TagEntity> tag entities prepared for updating gift certificate
+     */
+    List<TagEntity> insertTagsFromCertificate(List<TagEntity> tags);
 }

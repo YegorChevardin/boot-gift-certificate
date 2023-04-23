@@ -9,6 +9,7 @@ import ua.com.epam.lab.yegorchevardin.springboot.giftcertificate.repository.enti
 import ua.com.epam.lab.yegorchevardin.springboot.giftcertificate.service.exceptions.DataExistException;
 import ua.com.epam.lab.yegorchevardin.springboot.giftcertificate.service.exceptions.DataNotFoundException;
 import ua.com.epam.lab.yegorchevardin.springboot.giftcertificate.service.services.GiftCertificateService;
+import ua.com.epam.lab.yegorchevardin.springboot.giftcertificate.service.services.TagService;
 import ua.com.epam.lab.yegorchevardin.springboot.giftcertificate.service.services.constants.ExceptionMessages;
 import ua.com.epam.lab.yegorchevardin.springboot.giftcertificate.service.utils.DomainObjectsConvertor;
 import ua.com.epam.lab.yegorchevardin.springboot.giftcertificate.web.dtos.GiftCertificate;
@@ -23,6 +24,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class GiftCertificateServiceImpl implements GiftCertificateService {
     private final GiftCertificateDAO giftCertificateDAO;
+    private final TagService tagService;
     private final DomainObjectsConvertor<GiftCertificateEntity, GiftCertificate>
             giftCertificateDomainObjectsConvertor;
 
@@ -76,6 +78,10 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
         GiftCertificateEntity entity = giftCertificateDomainObjectsConvertor
                 .convertDtoToEntity(dto);
         entity.setCreateDate(Timestamp.valueOf(LocalDateTime.now()));
+
+        //todo handle tags via tags service
+        entity.setTags(tagService.insertTagsFromCertificate(entity.getTags()));
+
         return giftCertificateDomainObjectsConvertor
                 .convertEntityToDTO(
                         giftCertificateDAO.insert(entity).orElseThrow(
