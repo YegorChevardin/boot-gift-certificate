@@ -10,7 +10,7 @@ import java.util.List;
  * @author yegorchevardin
  * @version 0.0.1
  */
-public interface OrderService extends CreateDeadUpdateDeleteService<Order> {
+public interface OrderService extends CreateReadUpdateDeleteService<Order> {
     /**
      * Method for getting a entities by specified user id
      * @param userId user id

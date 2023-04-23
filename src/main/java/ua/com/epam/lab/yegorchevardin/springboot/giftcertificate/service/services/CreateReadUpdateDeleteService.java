@@ -5,7 +5,7 @@ package ua.com.epam.lab.yegorchevardin.springboot.giftcertificate.service.servic
  * @author yegorchevardin
  * @version 0.0.1
  */
-public interface CreateDeadUpdateDeleteService<T> extends CreateReadDeleteService<T> {
+public interface CreateReadUpdateDeleteService<T> extends CreateReadDeleteService<T> {
     /**
      * Updates entity of T datatype
      * @param entity updated entity

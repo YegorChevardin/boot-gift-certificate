@@ -1,9 +1,6 @@
 package ua.com.epam.lab.yegorchevardin.springboot.giftcertificate.service.services;
 
-import org.springframework.util.MultiValueMap;
 import ua.com.epam.lab.yegorchevardin.springboot.giftcertificate.web.dtos.GiftCertificate;
-
-import java.util.List;
 
 /**
  * Interface that defines service methods
@@ -12,7 +9,7 @@ import java.util.List;
  * @version 0.0.1
  */
 public interface GiftCertificateService
-        extends CreateDeadUpdateDeleteService<GiftCertificate>,
+        extends CreateReadUpdateDeleteService<GiftCertificate>,
         FilterService<GiftCertificate> {
     /**
      * Method for getting a gift certificate entity by name.
