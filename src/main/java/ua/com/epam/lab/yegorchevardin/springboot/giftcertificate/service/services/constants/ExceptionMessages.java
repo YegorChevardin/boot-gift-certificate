@@ -9,6 +9,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum ExceptionMessages {
     TAG_BY_ID_NOT_FOUND("Tag by this id %s does not exist"),
+    TAB_BY_NAME_NOT_FOUND("Tag by this name %s does not exist"),
     TAG_BY_NAME_EXIST("%s tag already exist"),
     TAG_NOT_FOUND("Such tag does not exist"),
     GIFT_CERTIFICATE_BY_ID_NOT_FOUND("Gift certificate by this id %s does not exist"),

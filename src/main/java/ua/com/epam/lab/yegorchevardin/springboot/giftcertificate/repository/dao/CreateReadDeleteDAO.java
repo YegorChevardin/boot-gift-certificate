@@ -31,7 +31,7 @@ public interface CreateReadDeleteDAO<T> {
      * @param entity an object to save.
      * @return saved entity with generated id
      */
-    T insert(T entity);
+    Optional<T> insert(T entity);
 
     /**
      * Removes an object of T datatype from data source by its id

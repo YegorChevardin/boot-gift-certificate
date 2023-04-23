@@ -6,6 +6,7 @@ import org.hibernate.Hibernate;
 import org.hibernate.envers.Audited;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -45,7 +46,7 @@ public class GiftCertificateEntity {
             inverseJoinColumns = @JoinColumn(name = "tag_id")
     )
     @ToString.Exclude
-    private List<TagEntity> tags;
+    private List<TagEntity> tags = new ArrayList<>();
 
     @Override
     public boolean equals(Object o) {

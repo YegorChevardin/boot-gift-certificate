@@ -78,7 +78,12 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
         entity.setCreateDate(Timestamp.valueOf(LocalDateTime.now()));
         return giftCertificateDomainObjectsConvertor
                 .convertEntityToDTO(
-                        giftCertificateDAO.insert(entity)
+                        giftCertificateDAO.insert(entity).orElseThrow(
+                                () -> new DataNotFoundException(
+                                        String.format(ExceptionMessages.GIFT_CERTIFICATE_BY_ID_NOT_FOUND.getValue(),
+                                                entity.getId())
+                                )
+                        )
                 );
     }
 
@@ -103,13 +108,9 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
         return giftCertificateDomainObjectsConvertor.convertEntityToDTO(
                 giftCertificateDAO.findByName(name).orElseThrow(
                         () -> new DataNotFoundException(
-                                String.format(
-                                        ExceptionMessages
-                                                .GIFT_CERTIFICATE_BY_NAME_DOES_NOT_FOUND.getValue(),
-                                        name)
+                                ExceptionMessages.GIFT_CERTIFICATE_BY_NAME_DOES_NOT_FOUND.getValue()
                         )
-                )
-        );
+        ));
     }
 
     private GiftCertificateEntity findGiftCertificateByIdIfExists(Long id) {

@@ -42,9 +42,9 @@ public abstract class AbstractDAO<T> implements CreateReadDeleteDAO<T> {
 
     @Override
     @Transactional
-    public T insert(T entity) {
+    public Optional<T> insert(T entity) {
         entityManager.persist(entity);
-        return entity;
+        return Optional.of(entity);
     }
 
     @Override

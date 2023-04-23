@@ -1,5 +1,6 @@
 package ua.com.epam.lab.yegorchevardin.springboot.giftcertificate.web.dtos;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,5 +18,6 @@ import org.springframework.hateoas.RepresentationModel;
 public class Tag extends RepresentationModel<Tag> {
     private Long id;
     @Length(min = 2, max = 45)
+    @NotNull(message = "Tag value must be not null")
     private String value;
 }

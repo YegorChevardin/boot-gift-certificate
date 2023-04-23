@@ -9,8 +9,8 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import ua.com.epam.lab.yegorchevardin.springboot.giftcertificate.service.services.TagService;
 import ua.com.epam.lab.yegorchevardin.springboot.giftcertificate.web.dtos.Tag;
+import ua.com.epam.lab.yegorchevardin.springboot.giftcertificate.web.handlers.linkbuilders.LinkBuilder;
 import java.util.List;
-
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
 /**
@@ -23,6 +23,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 @RequiredArgsConstructor
 public class TagController {
     private final TagService tagService;
+    private final LinkBuilder<Tag> tagLinkBuilder;
 
     /**
      * Method for handling requests for getting all tags
@@ -36,9 +37,7 @@ public class TagController {
             @RequestParam(value = "size", defaultValue = "5", required = false) int size
     ) {
         List<Tag> tags = tagService.findAll(page, size).stream().peek(
-                (element) -> element.add(
-                        linkTo(methodOn(TagController.class)
-                                .findById(element.getId())).withSelfRel())
+                tagLinkBuilder::buildLinks
         ).toList();
         Link link = linkTo(methodOn(TagController.class).showAllTags(page, size)).withSelfRel();
         return ResponseEntity.ok(CollectionModel.of(tags, link));
@@ -52,7 +51,7 @@ public class TagController {
     @GetMapping("/{tagId}")
     public ResponseEntity<Tag> findById(@PathVariable(name = "tagId") Long tagId) {
         Tag tag = tagService.findById(tagId);
-        tag.add(linkTo(methodOn(TagController.class).findById(tagId)).withSelfRel());
+        tagLinkBuilder.buildLinks(tag);
         return ResponseEntity.ok(tag);
     }
 
@@ -64,7 +63,7 @@ public class TagController {
     @PostMapping
     public ResponseEntity<Tag> createTag(@RequestBody @Valid Tag tag) {
         Tag insertedTag = tagService.insert(tag);
-        insertedTag.add(linkTo(methodOn(TagController.class).findById(insertedTag.getId())).withSelfRel());
+        tagLinkBuilder.buildLinks(insertedTag);
         return ResponseEntity.ok(insertedTag);
     }
 
@@ -86,7 +85,7 @@ public class TagController {
     @GetMapping("/most-profitable")
     public ResponseEntity<Tag> findMostProfitableTag() {
         Tag dto = tagService.findMostPopularTagWithOrdersWithHighestCost();
-        dto.add(linkTo(methodOn(TagController.class).findById(dto.getId())).withSelfRel());
+        tagLinkBuilder.buildLinks(dto);
         return ResponseEntity.ok(dto);
     }
 
@@ -103,8 +102,7 @@ public class TagController {
             @RequestParam(name = "size", defaultValue = "5", required = false) int size) {
         List<Tag> tags = tagService.doFilter(params, page, size)
                 .stream().peek(
-                        (element) -> element.add(linkTo(methodOn(TagController.class)
-                                .findById(element.getId())).withSelfRel())
+                        tagLinkBuilder::buildLinks
                 ).toList();
         Link link = linkTo(methodOn(TagController.class)
                 .tagByFilter(params, page, size)).withSelfRel();

@@ -44,8 +44,13 @@ public class TagServiceImpl implements TagService {
             );
         }
         TagEntity entity = tagDomainObjectsConvertor.convertDtoToEntity(dto);
-        tagDAO.insert(entity);
-        return tagDomainObjectsConvertor.convertEntityToDTO(entity);
+        return tagDomainObjectsConvertor.convertEntityToDTO(
+                tagDAO.insert(entity).orElseThrow(
+                        () -> new DataNotFoundException(
+                                ExceptionMessages.TAG_BY_ID_NOT_FOUND.getValue()
+                        )
+                )
+        );
     }
 
     @Override
