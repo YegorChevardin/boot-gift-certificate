@@ -25,7 +25,6 @@ public class OrderServiceImpl implements OrderService {
     private final OrderDAO orderDAO;
     private final DomainObjectsConvertor<OrderEntity, Order> orderDomainObjectsConvertor;
     private final GiftCertificateService giftCertificateService;
-    private final UserService userService;
 
     @Override
     public Order findById(long id) {

@@ -21,6 +21,7 @@ import java.util.Objects;
 @Setter
 @ToString
 @RequiredArgsConstructor
+@AllArgsConstructor
 @Audited
 public class GiftCertificateEntity {
     @Id
