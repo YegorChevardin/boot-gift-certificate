@@ -43,7 +43,7 @@ public class UserServiceImplTest {
     void getById_thenOk() {
         Mockito.when(userDao.findById(USER_1.getId())).thenReturn(Optional.of(USER_1));
         User actual = userService.findById(USER_1.getId());
-        assertEquals(userDomainConvertor.convertEntityToDTO(USER_1), actual);
+        Assertions.assertEquals(userDomainConvertor.convertEntityToDTO(USER_1), actual);
     }
 
     @Test
