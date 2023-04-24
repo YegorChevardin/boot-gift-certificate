@@ -18,6 +18,7 @@ import java.util.Objects;
 @Setter
 @ToString
 @NoArgsConstructor
+@AllArgsConstructor
 @Audited
 public class TagEntity {
     @Id
