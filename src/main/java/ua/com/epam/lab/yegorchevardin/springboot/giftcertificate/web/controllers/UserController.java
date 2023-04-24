@@ -1,5 +1,6 @@
 package ua.com.epam.lab.yegorchevardin.springboot.giftcertificate.web.controllers;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.Link;
@@ -55,5 +56,45 @@ public class UserController {
         User user = userService.findById(id);
         userLinkBuilder.buildLinks(user);
         return ResponseEntity.ok(user);
+    }
+
+    /**
+     * Method for handling requests for creating user
+     * @param user valid user object to insert
+     * @return ResponseEntity with created user
+     */
+    @PostMapping
+    public ResponseEntity<User> createUser(
+            @RequestBody @Valid User user
+    ) {
+        User dto = userService.insert(user);
+        userLinkBuilder.buildLinks(dto);
+        return ResponseEntity.ok(dto);
+    }
+
+    /**
+     * Method for handling requests for updating user object
+     * @param user valid user object with updated values
+     * @return ResponseEntity with updated user
+     */
+    @PutMapping
+    public ResponseEntity<User> updateUser(
+            @RequestBody @Valid User user
+    ) {
+        User dto = userService.update(user);
+        userLinkBuilder.buildLinks(dto);
+        return ResponseEntity.ok(dto);
+    }
+
+    /**
+     * Method for handling requests for deleting user
+     * @param id id of user to delete
+     */
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteUser(
+            @PathVariable Long id
+    ) {
+        userService.removeById(id);
+        return ResponseEntity.ok().build();
     }
 }

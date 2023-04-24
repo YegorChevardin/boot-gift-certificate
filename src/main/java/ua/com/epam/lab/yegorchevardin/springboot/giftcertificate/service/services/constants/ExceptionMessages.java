@@ -12,6 +12,9 @@ public enum ExceptionMessages {
     TAB_BY_NAME_NOT_FOUND("Tag by this name %s does not exist"),
     TAG_BY_NAME_EXIST("%s tag already exist"),
     TAG_NOT_FOUND("Such tag does not exist"),
+    USER_BY_ID_NOT_FOUND("User with this id %s does not exist"),
+    USER_BY_USERNAME_EXIST("User with this username %s already exist"),
+    USER_BY_USERNAME_NOT_FOUND("User with this username %s not found"),
     GIFT_CERTIFICATE_BY_ID_NOT_FOUND("Gift certificate by this id %s does not exist"),
     GIFT_CERTIFICATE_BY_NAME_EXIST("%s gift certificate already exist"),
     GIFT_CERTIFICATE_BY_NAME_DOES_NOT_FOUND(

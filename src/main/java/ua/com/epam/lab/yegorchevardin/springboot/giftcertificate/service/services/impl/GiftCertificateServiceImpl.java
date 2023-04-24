@@ -34,6 +34,13 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
             throw new DataNotFoundException(
                     "Cannot update object with en empty id."
             );
+        } else if (giftCertificateDAO.findById(dto.getId()).isEmpty()) {
+            throw new DataNotFoundException(
+                    String.format(
+                            ExceptionMessages.GIFT_CERTIFICATE_BY_ID_NOT_FOUND.getValue(),
+                            dto.getId()
+                    )
+            );
         }
         if (giftCertificateDAO.findByName(dto.getName()).isPresent()
                 && !Objects.equals(giftCertificateDAO
@@ -43,7 +50,7 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
                             "with this name is already exist: " + dto.getName()
             );
         }
-        GiftCertificateEntity existedEntity = giftCertificateDAO.findByName(dto.getName()).get();
+        GiftCertificateEntity existedEntity = giftCertificateDAO.findById(dto.getId()).get();
         GiftCertificateEntity entity = giftCertificateDomainObjectsConvertor
                 .convertDtoToEntity(dto);
         entity.setId(dto.getId());

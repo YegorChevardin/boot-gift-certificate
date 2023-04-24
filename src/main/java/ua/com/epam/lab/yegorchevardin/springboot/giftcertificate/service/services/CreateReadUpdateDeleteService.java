@@ -8,7 +8,7 @@ package ua.com.epam.lab.yegorchevardin.springboot.giftcertificate.service.servic
 public interface CreateReadUpdateDeleteService<T> extends CreateReadDeleteService<T> {
     /**
      * Updates entity of T datatype
-     * @param entity updated entity
+     * @param dto updated entity
      */
     T update(T dto);
 }
