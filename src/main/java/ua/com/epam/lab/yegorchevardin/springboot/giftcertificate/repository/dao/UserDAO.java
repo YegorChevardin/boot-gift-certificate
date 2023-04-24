@@ -8,10 +8,10 @@ import java.util.Optional;
  * @author yegorchevardin
  * @version 0.0.1
  */
-public interface UserDAO extends CreateReadDeleteDAO<UserEntity> {
+public interface UserDAO extends CreateReadUpdateDeleteDAO<UserEntity> {
     /**
      * Retrieves a User entity by its name
-     * @param name entity name
+     * @param username entity name
      * @return User entity
      */
     Optional<UserEntity> findByUsername(String username);

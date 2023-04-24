@@ -3,7 +3,7 @@ package ua.com.epam.lab.yegorchevardin.springboot.giftcertificate.repository.dao
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import ua.com.epam.lab.yegorchevardin.springboot.giftcertificate.repository.dao.AbstractDAO;
@@ -15,7 +15,7 @@ import java.util.Optional;
 
 import static ua.com.epam.lab.yegorchevardin.springboot.giftcertificate.repository.constants.FilterTypes.TAG_NAME;
 
-@Component
+@Repository
 public class TagDAOImpl extends AbstractDAO<TagEntity> implements TagDAO {
     private static final String MOST_POPULAR_TAG_QUERY = "select t from OrderEntity o " +
             "join o.giftCertificates c " +
@@ -23,8 +23,8 @@ public class TagDAOImpl extends AbstractDAO<TagEntity> implements TagDAO {
             "group by t.id order by count(t.id) desc, sum(o.cost) desc";
 
     @Autowired
-    public TagDAOImpl(QueryHandler<TagEntity> queryCreator, Class<TagEntity> entityType) {
-        super(queryCreator, entityType);
+    public TagDAOImpl(QueryHandler<TagEntity> queryCreator) {
+        super(queryCreator, TagEntity.class);
     }
 
     @Override
@@ -32,7 +32,7 @@ public class TagDAOImpl extends AbstractDAO<TagEntity> implements TagDAO {
         MultiValueMap<String, String> paramMap = new LinkedMultiValueMap<>();
         paramMap.add(TAG_NAME.getValue(), name);
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-        CriteriaQuery<TagEntity> criteriaQuery = queryCreator.createFilteringGetQuery(paramMap, criteriaBuilder);
+        CriteriaQuery<TagEntity> criteriaQuery = queryHandler.createFilteringGetQuery(paramMap, criteriaBuilder);
         return entityManager.createQuery(criteriaQuery)
                 .getResultStream()
                 .findFirst();

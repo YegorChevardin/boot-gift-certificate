@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 public abstract class AbstractDAO<T> implements CreateReadDeleteDAO<T> {
     @PersistenceContext
     protected EntityManager entityManager;
-    protected final QueryHandler<T> queryCreator;
+    protected final QueryHandler<T> queryHandler;
     protected final Class<T> entityType;
 
     @Override
@@ -42,9 +42,9 @@ public abstract class AbstractDAO<T> implements CreateReadDeleteDAO<T> {
 
     @Override
     @Transactional
-    public T insert(T entity) {
+    public Optional<T> insert(T entity) {
         entityManager.persist(entity);
-        return entity;
+        return Optional.of(entity);
     }
 
     @Override
@@ -56,7 +56,7 @@ public abstract class AbstractDAO<T> implements CreateReadDeleteDAO<T> {
 
     @Override
     public List<T> findWithFilter(MultiValueMap<String, String> params, Pageable pageable) {
-        CriteriaQuery<T> criteriaQuery = queryCreator.createFilteringGetQuery(
+        CriteriaQuery<T> criteriaQuery = queryHandler.createFilteringGetQuery(
                 params,
                 entityManager.getCriteriaBuilder()
         );

@@ -45,9 +45,7 @@ public class TagQueryHandler extends AbstractQueryHandler
             }
         }
 
-        criteriaQuery.select(root)
-                .where(predicates.toArray(new Predicate[]{}))
-                .orderBy(orders);
+        criteriaQuery.select(root).where(predicates.toArray(new Predicate[]{})).orderBy(orders);
         return criteriaQuery;
     }
 }

@@ -14,11 +14,11 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "tags")
-@Audited
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
+@Audited
 public class TagEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

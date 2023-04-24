@@ -42,7 +42,7 @@ public class GiftCertificateQueryHandler
                     .findFirst()
                     .orElse("");
 
-            if (filterParam.equals(NAME.getValue())) {
+            if (filterParam.equals(NAME_FIELD)) {
                 predicates.add(addLikePredicate(criteriaBuilder, root.get(NAME_FIELD), paramValue));
             } else if (filterParam.equals(DESCRIPTION.getValue())) {
                 predicates.add(addLikePredicate(criteriaBuilder, root.get(DESCRIPTION.getValue()), paramValue));
