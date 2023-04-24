@@ -15,6 +15,7 @@ public enum ExceptionMessages {
     USER_BY_ID_NOT_FOUND("User with this id %s does not exist"),
     USER_BY_USERNAME_EXIST("User with this username %s already exist"),
     USER_BY_USERNAME_NOT_FOUND("User with this username %s not found"),
+    ORDER_NOT_FOUND_BY_ID("Order was not found by this id %s"),
     GIFT_CERTIFICATE_BY_ID_NOT_FOUND("Gift certificate by this id %s does not exist"),
     GIFT_CERTIFICATE_BY_NAME_EXIST("%s gift certificate already exist"),
     GIFT_CERTIFICATE_BY_NAME_DOES_NOT_FOUND(

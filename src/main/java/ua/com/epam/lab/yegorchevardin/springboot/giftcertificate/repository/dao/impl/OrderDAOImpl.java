@@ -32,4 +32,9 @@ public class OrderDAOImpl extends AbstractDAO<OrderEntity> implements OrderDAO {
                 .distinct()
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public OrderEntity update(OrderEntity entity) {
+        return entityManager.merge(entity);
+    }
 }

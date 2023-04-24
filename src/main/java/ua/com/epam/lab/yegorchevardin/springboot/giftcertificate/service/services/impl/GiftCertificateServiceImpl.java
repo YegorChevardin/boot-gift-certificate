@@ -16,6 +16,7 @@ import ua.com.epam.lab.yegorchevardin.springboot.giftcertificate.web.dtos.GiftCe
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -119,11 +120,35 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
     @Override
     public GiftCertificate findByName(String name) {
         return giftCertificateDomainObjectsConvertor.convertEntityToDTO(
-                giftCertificateDAO.findByName(name).orElseThrow(
-                        () -> new DataNotFoundException(
-                                ExceptionMessages.GIFT_CERTIFICATE_BY_NAME_DOES_NOT_FOUND.getValue()
-                        )
-        ));
+                findGiftCertificateByNameIfExist(name)
+        );
+    }
+
+    @Override
+    public List<GiftCertificateEntity> handleGiftCertificatesFromOrder(List<GiftCertificateEntity> certificates) {
+        List<GiftCertificateEntity> resultEntities = new ArrayList<>();
+        for (GiftCertificateEntity entity : certificates) {
+            resultEntities.add(
+                    findGiftCertificateByNameIfExist(entity.getName())
+            );
+        }
+        return resultEntities;
+    }
+
+    @Override
+    public Float countPriceFromAllEntities(List<GiftCertificateEntity> entities) {
+        Float cost = 0.0F;
+        for (GiftCertificateEntity entity : entities) {
+            cost += entity.getPrice();
+        }
+        return cost;
+    }
+
+    private GiftCertificateEntity findGiftCertificateByNameIfExist(String name) {
+        return giftCertificateDAO.findByName(name).orElseThrow(
+                () -> new DataNotFoundException(
+                        ExceptionMessages.GIFT_CERTIFICATE_BY_NAME_DOES_NOT_FOUND.getValue()
+                ));
     }
 
     private GiftCertificateEntity findGiftCertificateByIdIfExists(Long id) {
