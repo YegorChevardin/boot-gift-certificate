@@ -1,5 +1,6 @@
 package ua.com.epam.lab.yegorchevardin.springboot.giftcertificate.repository.dao.impl;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
@@ -34,6 +35,7 @@ public class OrderDAOImpl extends AbstractDAO<OrderEntity> implements OrderDAO {
     }
 
     @Override
+    @Transactional
     public OrderEntity update(OrderEntity entity) {
         return entityManager.merge(entity);
     }

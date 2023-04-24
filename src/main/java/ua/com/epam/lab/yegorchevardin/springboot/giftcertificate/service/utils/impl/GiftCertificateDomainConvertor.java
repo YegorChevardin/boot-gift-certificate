@@ -10,6 +10,10 @@ import ua.com.epam.lab.yegorchevardin.springboot.giftcertificate.web.dtos.Tag;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.List;
 import java.util.stream.Collectors;
 
 /**
@@ -47,9 +51,25 @@ public class GiftCertificateDomainConvertor
         entity.setPrice(dto.getPrice());
         entity.setDuration(dto.getDuration());
         entity.setLastUpdateDate(Timestamp.valueOf(LocalDateTime.now()));
-        entity.setTags(dto.getTags()
-                .stream().map(tagDomainConvertor::convertDtoToEntity)
-                .collect(Collectors.toList()));
+        List<TagEntity> tagEntities = getUniqueTags(dto.getTags())
+                .stream()
+                .map(tagDomainConvertor::convertDtoToEntity)
+                .toList();
+        entity.setTags(tagEntities);
         return entity;
+    }
+
+    private List<Tag> getUniqueTags(List<Tag> tags) {
+        HashSet<String> uniqueValues = new HashSet<>();
+        List<Tag> uniqueTags = new ArrayList<>();
+
+        for (Tag obj : tags) {
+            String fieldValue = obj.getValue();
+            if (!uniqueValues.contains(fieldValue)) {
+                uniqueValues.add(fieldValue);
+                uniqueTags.add(obj);
+            }
+        }
+        return uniqueTags;
     }
 }

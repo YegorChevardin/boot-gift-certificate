@@ -30,7 +30,9 @@ public class OrderDomainConvertor implements DomainObjectsConvertor<OrderEntity,
         dto.setId(entity.getId());
         dto.setCost(entity.getCost());
         dto.setUser(userDomainObjectsConvertor.convertEntityToDTO(entity.getUser()));
-        dto.setPurchasedAt(String.valueOf(entity.getPurchasedAt().toLocalDateTime()));
+        if(dto.getPurchasedAt() != null) {
+            dto.setPurchasedAt(String.valueOf(entity.getPurchasedAt().toLocalDateTime()));
+        }
         dto.setGiftCertificates(entity.getGiftCertificates()
                 .stream().map(
                         giftCertificateDomainObjectsConvertor::convertEntityToDTO

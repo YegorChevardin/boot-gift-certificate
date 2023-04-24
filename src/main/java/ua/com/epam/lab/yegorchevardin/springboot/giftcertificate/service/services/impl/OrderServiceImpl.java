@@ -79,9 +79,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     private OrderEntity prepareOrderEntity(Order order, boolean purchase) {
-        order.setUser(userService.findById(order.getUser().getId()));
         OrderEntity entity = orderDomainObjectsConvertor.convertDtoToEntity(order);
-
+        entity.getUser().setId(order.getUser().getId());
         entity.setGiftCertificates(
                 giftCertificateService.
                         handleGiftCertificatesFromOrder(

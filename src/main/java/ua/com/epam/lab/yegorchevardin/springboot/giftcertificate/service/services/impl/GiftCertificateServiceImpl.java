@@ -17,6 +17,7 @@ import ua.com.epam.lab.yegorchevardin.springboot.giftcertificate.web.dtos.GiftCe
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -127,6 +128,7 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
     @Override
     public List<GiftCertificateEntity> handleGiftCertificatesFromOrder(List<GiftCertificateEntity> certificates) {
         List<GiftCertificateEntity> resultEntities = new ArrayList<>();
+
         for (GiftCertificateEntity entity : certificates) {
             resultEntities.add(
                     findGiftCertificateByNameIfExist(entity.getName())
