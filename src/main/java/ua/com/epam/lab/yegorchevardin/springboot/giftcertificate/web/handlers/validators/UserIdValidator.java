@@ -20,9 +20,9 @@ public class UserIdValidator implements ConstraintValidator<ExistingUser, User> 
 
     @Override
     public boolean isValid(User value, ConstraintValidatorContext context) {
-        if (value == null || value.getId() == null) return false;
+        if (value == null || value.getUsername() == null) return false;
         try {
-            userService.findById(value.getId());
+            userService.findByUsername(value.getUsername());
         } catch (DataNotFoundException e) {
             return false;
         }

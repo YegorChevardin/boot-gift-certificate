@@ -16,14 +16,14 @@ public class TagDomainConvertor implements DomainObjectsConvertor<TagEntity, Tag
     public Tag convertEntityToDTO(TagEntity entity) {
         Tag dto = new Tag();
         dto.setId(entity.getId());
-        dto.setValue(entity.getValue());
+        dto.setName(entity.getName());
         return dto;
     }
 
     @Override
     public TagEntity convertDtoToEntity(Tag dto) {
         TagEntity entity = new TagEntity();
-        entity.setValue(dto.getValue());
+        entity.setName(dto.getName());
         return entity;
     }
 }

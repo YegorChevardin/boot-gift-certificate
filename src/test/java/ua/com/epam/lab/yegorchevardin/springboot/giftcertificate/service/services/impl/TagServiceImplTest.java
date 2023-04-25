@@ -109,7 +109,7 @@ public class TagServiceImplTest {
 
     @Test
     void insert_thenOk() {
-        Mockito.when(tagDao.findByName(NEW_INSERT_TAG.getValue())).thenReturn(Optional.empty());
+        Mockito.when(tagDao.findByName(NEW_INSERT_TAG.getName())).thenReturn(Optional.empty());
         Mockito.when(tagDao.insert(BEFORE_INSERT_TAG)).thenReturn(Optional.of(TAG_5));
         Mockito.when(tagDomainConvertor.convertDtoToEntity(NEW_INSERT_TAG)).thenReturn(BEFORE_INSERT_TAG);
         Tag actual = tagService.insert(NEW_INSERT_TAG);
@@ -118,7 +118,7 @@ public class TagServiceImplTest {
 
     @Test
     void insertAlreadyExistedTag_thenThrow() {
-        Mockito.when(tagDao.findByName(NEW_INSERT_TAG.getValue())).thenReturn(Optional.of(TAG_5));
+        Mockito.when(tagDao.findByName(NEW_INSERT_TAG.getName())).thenReturn(Optional.of(TAG_5));
         assertThrows(DataExistException.class, () -> tagService.insert(NEW_INSERT_TAG));
     }
 
