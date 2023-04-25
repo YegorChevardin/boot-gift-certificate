@@ -25,8 +25,8 @@ public class TagEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-    @Column(name = "value", nullable = false, length = 45)
-    private String value;
+    @Column(name = "name", nullable = false, length = 45)
+    private String name;
 
     @Override
     public boolean equals(Object o) {

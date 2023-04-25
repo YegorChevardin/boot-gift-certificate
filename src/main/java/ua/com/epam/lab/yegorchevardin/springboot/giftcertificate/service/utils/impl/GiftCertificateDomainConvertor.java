@@ -64,7 +64,7 @@ public class GiftCertificateDomainConvertor
         List<Tag> uniqueTags = new ArrayList<>();
 
         for (Tag obj : tags) {
-            String fieldValue = obj.getValue();
+            String fieldValue = obj.getName();
             if (!uniqueValues.contains(fieldValue)) {
                 uniqueValues.add(fieldValue);
                 uniqueTags.add(obj);

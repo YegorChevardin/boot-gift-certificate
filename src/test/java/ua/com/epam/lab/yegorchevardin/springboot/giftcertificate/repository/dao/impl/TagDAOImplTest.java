@@ -85,7 +85,7 @@ public class TagDAOImplTest {
     @Test
     void getByName_thenOk() {
         Optional<TagEntity> expected = Optional.of(TAG_3);
-        Optional<TagEntity> actual = TagDAO.findByName(TAG_3.getValue());
+        Optional<TagEntity> actual = TagDAO.findByName(TAG_3.getName());
         assertEquals(expected, actual);
     }
 

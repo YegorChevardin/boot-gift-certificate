@@ -13,7 +13,7 @@ CREATE TABLE `gift_certificates`
 CREATE TABLE `tags`
 (
     `id`    INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    `value` VARCHAR(45)  NOT NULL,
+    `name` VARCHAR(45)  NOT NULL,
     PRIMARY KEY (`id`)
 );
 

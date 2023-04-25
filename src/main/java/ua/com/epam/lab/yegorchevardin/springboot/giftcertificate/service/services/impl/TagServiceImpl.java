@@ -39,9 +39,9 @@ public class TagServiceImpl implements TagService {
 
     @Override
     public Tag insert(Tag dto) {
-        if (tagDAO.findByName(dto.getValue()).isPresent()) {
+        if (tagDAO.findByName(dto.getName()).isPresent()) {
             throw new DataExistException(String.format(
-                    ExceptionMessages.TAG_BY_NAME_EXIST.getValue(), dto.getValue())
+                    ExceptionMessages.TAG_BY_NAME_EXIST.getValue(), dto.getName())
             );
         }
         TagEntity entity = tagDomainObjectsConvertor.convertDtoToEntity(dto);
@@ -75,9 +75,9 @@ public class TagServiceImpl implements TagService {
     public List<TagEntity> insertTagsFromCertificate(List<TagEntity> tags) {
         List<TagEntity> tagsToUpdate = new ArrayList<>();
         for (TagEntity currentTag : tags) {
-            if (tagDAO.findByName(currentTag.getValue()).isPresent()) {
+            if (tagDAO.findByName(currentTag.getName()).isPresent()) {
                 tagsToUpdate.add(
-                        tagDAO.findByName(currentTag.getValue()).get()
+                        tagDAO.findByName(currentTag.getName()).get()
                 );
             } else {
                 tagsToUpdate.add(currentTag);
