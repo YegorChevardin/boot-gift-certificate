@@ -25,6 +25,7 @@ public class OrderServiceImpl implements OrderService {
     private final OrderDAO orderDAO;
     private final DomainObjectsConvertor<OrderEntity, Order> orderDomainObjectsConvertor;
     private final GiftCertificateService giftCertificateService;
+    private final UserService userService;
 
     @Override
     public Order findById(long id) {
@@ -78,6 +79,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     private OrderEntity prepareOrderEntity(Order order, boolean purchase) {
+        order.setUser(userService.findByUsername(order.getUser().getUsername()));
         OrderEntity entity = orderDomainObjectsConvertor.convertDtoToEntity(order);
         entity.getUser().setId(order.getUser().getId());
         entity.setGiftCertificates(

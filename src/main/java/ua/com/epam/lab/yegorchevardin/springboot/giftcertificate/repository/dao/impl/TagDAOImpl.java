@@ -20,7 +20,7 @@ public class TagDAOImpl extends AbstractDAO<TagEntity> implements TagDAO {
     private static final String MOST_POPULAR_TAG_QUERY = "select t from OrderEntity o " +
             "join o.giftCertificates c " +
             "join c.tags t " +
-            "group by t.id order by count(t.id) desc, sum(o.cost) desc";
+            "group by t.id order by count(t.id) desc, sum(o.cost) desc limit 1";
 
     @Autowired
     public TagDAOImpl(QueryHandler<TagEntity> queryCreator) {

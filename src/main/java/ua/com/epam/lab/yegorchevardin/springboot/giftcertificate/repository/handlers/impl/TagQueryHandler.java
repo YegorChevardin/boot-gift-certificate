@@ -20,7 +20,7 @@ import static ua.com.epam.lab.yegorchevardin.springboot.giftcertificate.reposito
 @Component
 public class TagQueryHandler extends AbstractQueryHandler
         implements QueryHandler<TagEntity> {
-    private static final String TAG_VALUE_COLUMN = "value";
+    private static final String TAG_VALUE_COLUMN = "name";
 
     @Override
     public CriteriaQuery<TagEntity> createFilteringGetQuery(
