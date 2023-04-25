@@ -33,10 +33,12 @@ public class OrderDomainConvertor implements DomainObjectsConvertor<OrderEntity,
         if(dto.getPurchasedAt() != null) {
             dto.setPurchasedAt(String.valueOf(entity.getPurchasedAt().toLocalDateTime()));
         }
-        dto.setGiftCertificates(entity.getGiftCertificates()
-                .stream().map(
-                        giftCertificateDomainObjectsConvertor::convertEntityToDTO
-                ).collect(Collectors.toList()));
+        if (entity.getGiftCertificates() != null) {
+            dto.setGiftCertificates(entity.getGiftCertificates()
+                    .stream().map(
+                            giftCertificateDomainObjectsConvertor::convertEntityToDTO
+                    ).collect(Collectors.toList()));
+        }
         return dto;
     }
 
@@ -44,9 +46,11 @@ public class OrderDomainConvertor implements DomainObjectsConvertor<OrderEntity,
     public OrderEntity convertDtoToEntity(Order dto) {
         OrderEntity entity = new OrderEntity();
         entity.setUser(userDomainObjectsConvertor.convertDtoToEntity(dto.getUser()));
-        entity.setGiftCertificates(dto.getGiftCertificates()
-                .stream().map(giftCertificateDomainObjectsConvertor::convertDtoToEntity)
-                .collect(Collectors.toList()));
+        if (dto.getGiftCertificates() != null) {
+            entity.setGiftCertificates(dto.getGiftCertificates()
+                    .stream().map(giftCertificateDomainObjectsConvertor::convertDtoToEntity)
+                    .collect(Collectors.toList()));
+        }
         return entity;
     }
 }

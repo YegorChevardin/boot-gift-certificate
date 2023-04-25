@@ -21,5 +21,5 @@ public class Tag extends RepresentationModel<Tag> {
     private Long id;
     @Length(min = 2, max = 45, message = "Tag should range between 2 and 45 characters")
     @NotNull(message = "Tag value must be not null")
-    private String value;
+    private String name;
 }
